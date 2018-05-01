@@ -1,0 +1,8 @@
+*.params
+*-symbol.json
+*.pyc
+data/
+static/node_modules/
+static/web/scripts/
+.DS_Store
+.ipynb_checkpoints/
