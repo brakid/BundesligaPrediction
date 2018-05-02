@@ -43,7 +43,7 @@ def get_table(year, from_file=True):
     if (from_file == True):
         table_result = pd.read_json(table_data_directory + "/table" + str(year) + ".txt")
     else:
-        url = "https://www.openligadb.de/api/getbltable/bl1/2017"
+        url = "https://www.openligadb.de/api/getbltable/bl1/" + str(year)
         response = urllib.urlopen(url)
         data = json.loads(response.read())
         table_result = pd.DataFrame.from_dict(data)
@@ -221,6 +221,15 @@ def get_game_prediction(model, encoder, team_name_1, team_name_2):
     team_ids = np.append(team_1_id, team_1_id)
     data = np.append(team_ids, placement_comparison)
     return predict_game(model, data)
+
+def get_teams(year):
+    url = "https://www.openligadb.de/api/getbltable/bl1/" + str(year)
+    response = urllib.urlopen(url)
+    data = json.loads(response.read())
+    table_result = pd.DataFrame.from_dict(data)
+    table_result = table_result[["TeamName", "TeamIconUrl"]]
+    return table_result
+
 
 #encoder = get_encoder(get_all_teams()["TeamName"].values)
 #loaded_data = prepare_data()

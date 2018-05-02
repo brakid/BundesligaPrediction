@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import PredictionComponent from './PredictionComponent';
+
 ReactDOM.render(
-    (<p>Hello World</p>),
+    (<PredictionComponent />),
     document.getElementById('main')
 );

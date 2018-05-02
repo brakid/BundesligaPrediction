@@ -3,4 +3,5 @@ for year in 2010 2011 2012 2013 2014 2015 2016 2017; do curl -v -H "Accept: text
 
 for year in 2010 2011 2012 2013 2014 2015 2016 2017; do curl -v -H "Accept: text/json" https://www.openligadb.de/api/getbltable/bl1/$year > table$year.txt;  done
 
-curl -i -H "Accept: application/json" -X POST -d "home":"FC Bayern","away":"1. FC Köln" http://localhost:8080/api/v1/prediction
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"home":"FC Bayern","away":"1. FC Köln"}' http://localhost:8080/api/v1/prediction
+curl http://127.0.0.1:8080/api/v1/teams/2011

@@ -41,16 +41,15 @@ def get_prediction():
 
     return jsonify({ 'homeTeamWins': round(game_prediction[0], 5), 'draw': round(game_prediction[1], 5), 'awayTeamWins': round(game_prediction[2], 5) }), 200
 
-@app.route('/api/v1/teams', defaults={'year': None})
+@app.route('/api/v1/teams', defaults={'year': datetime.datetime.now().year - 1})
 @app.route('/api/v1/teams/<year>')
 def get_teams(year):
-    if year == None:
-        return jsonify(prediction.get_all_teams()["TeamName"].values.tolist()), 200
-    else:
-        if year < 2010 and year > datetime.datetime.now().year - 1:
-            return make_response(jsonify( { 'error': 'Year not supported must be between 2010 and ' + str(datetime.datetime.now().year - 1) } ), 403)
+    if year < 2010 and year > datetime.datetime.now().year - 1:
+        return make_response(jsonify( { 'error': 'Year not supported must be between 2010 and ' + str(datetime.datetime.now().year - 1) } ), 403)
 
-    return jsonify(prediction.get_table(year, False)["TeamName"].values.tolist()), 200
+    teams = prediction.get_teams(year)[["TeamName", "TeamIconUrl"]].values.tolist()
+
+    return jsonify([{'teamName': team[0], 'teamIconUrl': team[1]} for team in teams]), 200
     
 if __name__ == '__main__':
     app.run(debug = True, port = 8080)
