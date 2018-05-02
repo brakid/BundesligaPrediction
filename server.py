@@ -2,6 +2,7 @@
 from flask import Flask, jsonify, abort, request, make_response, url_for, redirect
 import datetime
 import prediction
+from flask_cors import CORS
 
 def validate_team(team, teams):
     return (team in teams)
@@ -10,6 +11,7 @@ encoder = prediction.get_encoder(prediction.get_all_teams()["TeamName"].values)
 model = prediction.load_model()
 
 app = Flask(__name__, static_url_path='')
+CORS(app)
 
 @app.errorhandler(400)
 def not_found(error):
@@ -52,4 +54,4 @@ def get_teams(year):
     return jsonify([{'teamName': team[0], 'teamIconUrl': team[1]} for team in teams]), 200
     
 if __name__ == '__main__':
-    app.run(debug = True, port = 8080)
+    app.run(host='0.0.0.0', port = 8080, threaded=True, debug=True)
