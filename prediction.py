@@ -218,7 +218,7 @@ def get_game_prediction(model, encoder, team_name_1, team_name_2):
     team_2_placement = get_team_placement(team_name_2, 2017, False)
     placement_comparison = compare_placements(team_1_placement, team_2_placement)
     print placement_comparison
-    team_ids = np.append(team_1_id, team_1_id)
+    team_ids = np.append(team_1_id, team_2_id)
     data = np.append(team_ids, placement_comparison)
     return predict_game(model, data)
 

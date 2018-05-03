@@ -65,7 +65,7 @@ export default class PredictionView extends React.Component {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({'away':this.state.homeTeam,'home':this.state.awayTeam})
+        body: JSON.stringify({'home':this.state.homeTeam,'away':this.state.awayTeam})
       })
       .then(res => res.json())
       .then((result) => {
@@ -92,6 +92,8 @@ export default class PredictionView extends React.Component {
     var homeWinsProbability = this.state.prediction.homeTeamWins;
     var awayWinsProbability = this.state.prediction.awayTeamWins;
     var drawProbability = this.state.prediction.draw;
+
+    console.log(homeWinsProbability + ' : ' + awayWinsProbability + ' : ' + drawProbability);
 
     if (homeWinsProbability > awayWinsProbability && homeWinsProbability > drawProbability) {
       return this.state.homeTeam + ' gewinnt zuhause gegen ' + this.state.awayTeam + ' (' + this.getPercentage(homeWinsProbability) + '% Konfidenz)';

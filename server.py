@@ -41,6 +41,8 @@ def get_prediction():
     
     game_prediction = prediction.get_game_prediction(model, encoder, home, away)
 
+    print game_prediction
+
     return jsonify({ 'homeTeamWins': round(game_prediction[0], 5), 'draw': round(game_prediction[1], 5), 'awayTeamWins': round(game_prediction[2], 5) }), 200
 
 @app.route('/api/v1/teams', defaults={'year': datetime.datetime.now().year - 1})
